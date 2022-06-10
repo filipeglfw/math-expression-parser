@@ -33,7 +33,7 @@ function isRightParenthesis(ch) {
 }
 
 function isLogicalOperator(ch) {
-    return /&&|\|\||==|!=/.test(ch);
+    return /&&|\|\||==|!=/.test(ch);		//TODO: detect ">", "<", "<=", ">="
 }
 
 function isBoolean(word) {
