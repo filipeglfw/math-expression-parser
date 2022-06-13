@@ -33,11 +33,16 @@ function isRightParenthesis(ch) {
 }
 
 function isLogicalOperator(ch) {
-    return /&&|\|\||==|!=/.test(ch);		//TODO: detect ">", "<", "<=", ">="
+    return getLogicalOperator(ch).length > 0;
 }
 
 function isBoolean(word) {
 	return /true|false/i.test(word);
+}
+
+function getLogicalOperator(chars) {
+	let match = /&&|\|\||==|!=|>=|>|<=|</.exec(chars);
+	return match ? match[0] : ""
 }
 
 function tokenize(str) {
@@ -81,10 +86,11 @@ function tokenize(str) {
 			emptyLetterBufferAsVariables();
 			result.push(new Token("Function Argument Separator", char));
 		} else if (isLogicalOperator(char+arr[idx+1])) {
-            emptyNumberBufferAsLiteral();
+            		emptyNumberBufferAsLiteral();
 			emptyLetterBufferAsVariables();
-            result.push(new Token("Logical Operator", char+arr[idx+1]));
-            arr.splice(idx+1,1);
+			let match = getLogicalOperator(char+arr[idx+1]);
+			result.push(new Token("Logical Operator", match));
+			if(match.length > 1) arr.splice(idx+1,1);
         }
 	});
 	if (numberBuffer.length) {
