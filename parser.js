@@ -41,7 +41,7 @@ function isBoolean(word) {
 }
 
 function getLogicalOperator(chars) {
-	let match = /&&|\|\||==|!=|>=|(?<!\s)>|<=|(?<!\s)</.exec(chars);
+	let match = /&&|\|\||==|!=|>=|^>|<=|^</.exec(chars);
 	return match ? match[0] : ""
 }
 
